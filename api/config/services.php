@@ -30,4 +30,8 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    //Configurações Elastic Search
+    'es' => [
+        'host' => explode(',', env('ELASTICSEARCH_HOST')),
+    ]
 ];

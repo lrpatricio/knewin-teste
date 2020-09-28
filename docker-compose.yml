@@ -1,7 +1,5 @@
-###############################################################################
-#                          Generated on phpdocker.io                          #
-###############################################################################
 version: "3.1"
+
 services:
 
     postgres:
@@ -20,16 +18,11 @@ services:
     elasticsearch:
       image: elasticsearch:6.5.4
       container_name: knewin-teste-elasticsearch
-
-    webserver:
-      image: nginx:alpine
-      container_name: knewin-teste-webserver
       working_dir: /application
       volumes:
-          - .:/application
-          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+        - .:/application/elasticsearch/data
       ports:
-       - "1025:80"
+        - "9200:9200"
 
     php-fpm:
       build: phpdocker/php-fpm
@@ -39,3 +32,18 @@ services:
         - .:/application
         - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
 
+    webserver:
+      image: nginx:alpine
+      container_name: knewin-teste-webserver
+      working_dir: /application
+      volumes:
+          - .:/application
+          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      depends_on:
+        - php-fpm
+      ports:
+        - "1025:80"
+
+    indexador:
+      image: node:alpine
+      build: phpdocker/indexador

@@ -1,0 +1,11 @@
+{
+    "name": "knewin-teste-indexador",
+    "version": "1.0.0",
+    "description": "Importador de notícias de um banco de dados relacional para o elasticSearch",
+    "author": "Leonardo Patricio <leonardorpatricio@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "@elastic/elasticsearch": "^7.9.1",
+        "pg": "^8.3.3"
+    }
+}
